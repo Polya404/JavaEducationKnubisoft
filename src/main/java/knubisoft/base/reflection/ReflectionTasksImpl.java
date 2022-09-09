@@ -1,7 +1,7 @@
 package knubisoft.base.reflection;
 
-import com.knubisoft.base.reflection.model.EntryModel;
-import com.knubisoft.base.reflection.model.InheritedEntryModel;
+import knubisoft.base.reflection.model.EntryModel;
+import knubisoft.base.reflection.model.InheritedEntryModel;
 import lombok.SneakyThrows;
 
 import java.lang.annotation.Annotation;
@@ -165,7 +165,7 @@ public class ReflectionTasksImpl implements ReflectionTasks {
             field = instance.getClass().getDeclaredField(name);
             field.setAccessible(true);
             field.set(instance, newValue);
-            Object x = (Object) field.get(instance);
+            Object x = field.get(instance);
             return x;
         } catch (Exception e) {
             throw new RuntimeException();
