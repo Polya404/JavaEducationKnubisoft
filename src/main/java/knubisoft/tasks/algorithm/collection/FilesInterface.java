@@ -166,5 +166,5 @@ public interface FilesInterface {
      * @throws NotDirectoryException if the file could not otherwise be opened because it is not a directory
      *                               <i>(optional specific exception)</i>.
      */
-    boolean isEmptyDirectory(final File directory);
+    boolean isEmptyDirectory(final File directory) throws IOException;
 }

@@ -1,6 +1,6 @@
 package knubisoft.tasks.algorithm.xml;
 
-import com.knubisoft.tasks.algorithm.ModelRoot;
+import knubisoft.tasks.algorithm.ModelRoot;
 import lombok.SneakyThrows;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

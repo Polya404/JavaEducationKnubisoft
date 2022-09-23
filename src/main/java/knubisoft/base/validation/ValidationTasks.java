@@ -1,6 +1,6 @@
 package knubisoft.base.validation;
 
-import com.knubisoft.base.validation.annotation.*;
+import knubisoft.base.validation.annotation.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

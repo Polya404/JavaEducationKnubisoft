@@ -1,6 +1,6 @@
 package knubisoft.tasks.algorithm.json;
 
-import com.knubisoft.tasks.algorithm.ModelRoot;
+import knubisoft.tasks.algorithm.ModelRoot;
 
 import java.util.List;
 import java.util.Map;

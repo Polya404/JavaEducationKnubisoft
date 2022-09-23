@@ -1,10 +1,10 @@
 package knubisoft.tasks.algorithm.reflection;
 
-import com.knubisoft.base.reflection.ReflectionTasks;
-import com.knubisoft.base.reflection.ReflectionTasksImpl;
-import com.knubisoft.base.reflection.model.InheritedEntryModel;
-import com.knubisoft.base.string.StringTasks;
-import com.knubisoft.base.string.StringTasksImpl;
+import knubisoft.base.reflection.ReflectionTasks;
+import knubisoft.base.reflection.ReflectionTasksImpl;
+import knubisoft.base.reflection.model.InheritedEntryModel;
+import knubisoft.base.string.StringTasks;
+import knubisoft.base.string.StringTasksImpl;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.LowerCase;
@@ -16,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FieldUtilsTest {
     FieldUtils fieldUtils = new FieldUtilsImpl();
 
-    @SneakyThrows
+
     @Test
-    void getField1() {
+    void getField1() throws ClassNotFoundException, NoSuchFieldException {
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.Test");
         assertEquals(clazz.getDeclaredField("x"), fieldUtils.getField(clazz, "x"));
         assertEquals(clazz.getDeclaredField("y"), fieldUtils.getField(clazz, "y"));
@@ -31,18 +31,18 @@ public class FieldUtilsTest {
 
     }
 
-    @SneakyThrows
+
     @Test
-    void getDeclaredField() {
+    void getDeclaredField() throws ClassNotFoundException, NoSuchFieldException {
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.Test");
         assertEquals(clazz.getDeclaredField("x"), fieldUtils.getDeclaredField(clazz, "x"));
         assertEquals(clazz.getDeclaredField("y"), fieldUtils.getDeclaredField(clazz, "y"));
         assertNotEquals(clazz.getDeclaredField("x"), fieldUtils.getDeclaredField(clazz, "z"));
     }
 
-    @SneakyThrows
+
     @Test
-    void getAllFields() {
+    void getAllFields() throws ClassNotFoundException, NoSuchFieldException {
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.model.InheritedEntryModel");
         assertEquals(4, fieldUtils.getAllFields(clazz).length);
         assertEquals(0, fieldUtils.getAllFields(ReflectionTasks.class).length);
@@ -53,9 +53,9 @@ public class FieldUtilsTest {
         assertThrows(NoSuchElementException.class, () -> fieldUtils.getAllFields(null));
     }
 
-    @SneakyThrows
+
     @Test
-    void getFieldsWithAnnotation() {
+    void getFieldsWithAnnotation() throws ClassNotFoundException {
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.Test");
         assertEquals(2, fieldUtils.getFieldsWithAnnotation(clazz, Deprecated.class).length);
         assertEquals(1, fieldUtils.getFieldsWithAnnotation(clazz, LowerCase.class).length);

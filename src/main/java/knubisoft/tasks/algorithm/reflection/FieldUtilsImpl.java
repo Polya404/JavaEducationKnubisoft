@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 public class FieldUtilsImpl implements FieldUtils {
     @SneakyThrows
     @Override
-    public Field getField(Class<?> cls, String fieldName) {
+    public Field getField(Class<?> cls, String fieldName) throws ClassNotFoundException, NoSuchFieldException {
         Class<?> clazz = Class.forName(cls.getName());
         return clazz.getDeclaredField(fieldName);
     }
@@ -25,14 +25,14 @@ public class FieldUtilsImpl implements FieldUtils {
 
     @SneakyThrows
     @Override
-    public Field getDeclaredField(Class<?> cls, String fieldName) {
+    public Field getDeclaredField(Class<?> cls, String fieldName) throws ClassNotFoundException, NoSuchFieldException{
         Class clazz = Class.forName(cls.getName());
         return clazz.getDeclaredField(fieldName);
     }
 
     @SneakyThrows
     @Override
-    public Field[] getAllFields(Class<?> cls) {
+    public Field[] getAllFields(Class<?> cls) throws NoSuchFieldException, ClassNotFoundException {
         if (cls == null) {
             throw new NoSuchElementException();
         }
@@ -45,7 +45,7 @@ public class FieldUtilsImpl implements FieldUtils {
 
     @SneakyThrows
     @Override
-    public Field[] getFieldsWithAnnotation(Class<?> cls, Class<? extends Annotation> annotationCls) {
+    public Field[] getFieldsWithAnnotation(Class<?> cls, Class<? extends Annotation> annotationCls) throws ClassNotFoundException {
         Class<?> clazz = Class.forName(cls.getName());
         Field[] fields = clazz.getDeclaredFields();
         List<Field> fieldsWithAnnotation = new ArrayList<>();

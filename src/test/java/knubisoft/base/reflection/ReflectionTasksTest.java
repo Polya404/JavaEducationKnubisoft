@@ -1,9 +1,9 @@
 package knubisoft.base.reflection;
 
-import com.knubisoft.base.reflection.model.EntryModel;
-import com.knubisoft.base.reflection.model.InheritedEntryModel;
-import com.knubisoft.base.string.StringTasks;
-import com.knubisoft.base.string.StringTasksImpl;
+import knubisoft.base.reflection.model.EntryModel;
+import knubisoft.base.reflection.model.InheritedEntryModel;
+import knubisoft.base.string.StringTasks;
+import knubisoft.base.string.StringTasksImpl;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,8 +18,7 @@ public class ReflectionTasksTest {
     ReflectionTasks instance = new ReflectionTasksImpl();
 
     @Test
-    @SneakyThrows
-    public void createNewInstanceForClassSuccessful() {
+    public void createNewInstanceForClassSuccessful() throws ClassNotFoundException{
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.model.InheritedEntryModel");
         assertEquals(InheritedEntryModel.class, instance.createNewInstanceForClass(clazz).getClass());
         assertEquals(InheritedEntryModel.class,
@@ -27,8 +26,7 @@ public class ReflectionTasksTest {
     }
 
     @Test
-    @SneakyThrows
-    public void createNewInstanceForClassFail() {
+    public void createNewInstanceForClassFail() throws ClassNotFoundException {
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.ReflectionTasks");
         assertThrows(RuntimeException.class, () -> instance.createNewInstanceForClass(clazz));
         assertThrows(RuntimeException.class, () -> instance.createNewInstanceForClass(ReflectionTasks.class));
@@ -36,16 +34,14 @@ public class ReflectionTasksTest {
     }
 
     @Test
-    @SneakyThrows
-    public void findImplementationForInterfaceSuccessful() {
+    public void findImplementationForInterfaceSuccessful() throws ClassNotFoundException {
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.model.EntryModel");
         assertEquals(InheritedEntryModel.class, instance.findImplementationForInterface(clazz));
         assertEquals(InheritedEntryModel.class, instance.findImplementationForInterface(EntryModel.class));
     }
 
     @Test
-    @SneakyThrows
-    public void findImplementationForInterfaceFail() {
+    public void findImplementationForInterfaceFail() throws ClassNotFoundException {
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.ReflectionTasks");
         assertThrows(IllegalArgumentException.class,
                 () -> instance.findImplementationForInterface(clazz));
@@ -55,8 +51,7 @@ public class ReflectionTasksTest {
     }
 
     @Test
-    @SneakyThrows
-    public void findAllFieldsForClassSuccessful() {
+    public void findAllFieldsForClassSuccessful() throws ClassNotFoundException {
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.model.InheritedEntryModel");
         assertEquals(4, instance.findAllFieldsForClass(clazz).size());
         assertEquals(0, instance.findAllFieldsForClass(ReflectionTasks.class).size());
@@ -67,14 +62,12 @@ public class ReflectionTasksTest {
     }
 
     @Test
-    @SneakyThrows
     public void findAllFieldsForClassFail() {
         assertThrows(NoSuchElementException.class, () -> instance.findAllFieldsForClass(null));
     }
 
     @Test
-    @SneakyThrows
-    public void countPrivateMethodsInClassSuccessful() {
+    public void countPrivateMethodsInClassSuccessful() throws ClassNotFoundException {
         Class<?> clazz = Class.forName("com.knubisoft.base.reflection.model.EntryModel");
         assertEquals(2, instance.countPrivateMethodsInClass(clazz));
         assertEquals(0, instance.countPrivateMethodsInClass(StringTasks.class));
@@ -82,7 +75,6 @@ public class ReflectionTasksTest {
     }
 
     @Test
-    @SneakyThrows
     public void countPrivateMethodsInClassFail() {
         assertThrows(NoSuchElementException.class, () -> instance.countPrivateMethodsInClass(null));
     }
@@ -103,11 +95,11 @@ public class ReflectionTasksTest {
     @Test
     public void evaluateMethodByNameSuccessful() {
         assertEquals(int.class,
-                instance.evaluateMethodByName(com.knubisoft.base.reflection.model.Test.class, "test1"));
+                instance.evaluateMethodByName(knubisoft.base.reflection.model.Test.class, "test1"));
         assertEquals(String.class,
-                instance.evaluateMethodByName(com.knubisoft.base.reflection.model.Test.class, "test2"));
+                instance.evaluateMethodByName(knubisoft.base.reflection.model.Test.class, "test2"));
         assertEquals(boolean.class,
-                instance.evaluateMethodByName(com.knubisoft.base.reflection.model.Test.class, "test3"));
+                instance.evaluateMethodByName(knubisoft.base.reflection.model.Test.class, "test3"));
     }
 
     @Test
@@ -135,7 +127,7 @@ public class ReflectionTasksTest {
 
     @Test
     public void changePrivateFieldValue(){
-        com.knubisoft.base.reflection.Test test = new com.knubisoft.base.reflection.Test();
+        knubisoft.base.reflection.Test test = new knubisoft.base.reflection.Test();
         Assertions.assertEquals("val", instance.changePrivateFieldValue(test, "x", "val"));
         Assertions.assertEquals(1, instance.changePrivateFieldValue(test, "x", 1));
         Assertions.assertEquals("vl", instance.changePrivateFieldValue(test, "x", "vl"));

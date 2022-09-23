@@ -13,14 +13,14 @@ import java.lang.reflect.Field;
  */
 public interface FieldUtils {
 
-    Field getField(Class<?> cls, String fieldName);
+    Field getField(Class<?> cls, String fieldName) throws ClassNotFoundException, NoSuchFieldException;
 
     Field getField(Class<?> cls, String fieldName, boolean forceAccess);
 
-    Field getDeclaredField(Class<?> cls, String fieldName);
+    Field getDeclaredField(Class<?> cls, String fieldName) throws ClassNotFoundException, NoSuchFieldException;
 
-    Field[] getAllFields(Class<?> cls);
+    Field[] getAllFields(Class<?> cls) throws NoSuchFieldException, ClassNotFoundException;
 
-    Field[] getFieldsWithAnnotation(Class<?> cls, Class<? extends Annotation> annotationCls);
+    Field[] getFieldsWithAnnotation(Class<?> cls, Class<? extends Annotation> annotationCls) throws ClassNotFoundException;
 
 }

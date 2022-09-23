@@ -1,7 +1,8 @@
 package knubisoft.base.queue;
 
-import com.knubisoft.base.queue.car.Car;
-import com.knubisoft.base.queue.car.CarComparator;
+
+import knubisoft.base.queue.car.Car;
+import knubisoft.base.queue.car.CarComparator;
 
 import java.util.*;
 

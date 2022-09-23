@@ -1,5 +1,4 @@
 import GeneratorUtil.GeneratorUtil;
-import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.Field;
@@ -10,7 +9,7 @@ import java.util.Map;
 
 public class RunGenerate {
     private GeneratorUtil generator = new GeneratorUtil();
-    private int amountObject = 3;
+    private int amountObject = 1;
 
     public RunGenerate(int amountObject) {
         this.amountObject = amountObject;
@@ -35,6 +34,7 @@ public class RunGenerate {
     }
 
     @SneakyThrows
+    @SuppressWarnings("All")
     private Object createCollection(ParameterizedType type) {
         Object collectionGeneratedObject = generator.getCollectionGeneratedObject(Class.forName(type.getRawType().getTypeName()));
         Type[] types = type.getActualTypeArguments();

@@ -2,13 +2,16 @@ package knubisoft.tasks.algorithm.collection;
 
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,20 +36,22 @@ public class FilesImpl implements FilesInterface {
         FileUtils.copyDirectory(sourceDir, destinationDir);
     }
 
+    @SneakyThrows
     @Override
     public String toString(URL url, Charset encoding) throws IOException {
-        return null;
+        File f = new File(url.toURI());
+        return FileUtils.readFileToString(f, encoding);
     }
 
     @Override
     public String toString(InputStream input, Charset charset) throws IOException {
-        return null;
+        return IOUtils.toString(input, StandardCharsets.UTF_8);
     }
 
     @SneakyThrows
     @Override
-    public byte[] toByteArray(URL url) throws IOException {
-        File file = new File(String.valueOf(url));
+    public byte[] toByteArray(URL url) {
+        File file = new File(url.toURI());
         return Files.readAllBytes(file.toPath());
     }
 
@@ -66,7 +71,7 @@ public class FilesImpl implements FilesInterface {
 
     @SneakyThrows
     @Override
-    public boolean isEmptyDirectory(File directory) {
+    public boolean isEmptyDirectory(File directory) throws IOException{
         Path path = Path.of(directory.getPath());
         if (Files.isDirectory(path)) {
             try (DirectoryStream<Path> directories = Files.newDirectoryStream(path)) {

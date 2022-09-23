@@ -1,6 +1,5 @@
 package knubisoft.tasks.algorithm.json;
-
-import com.knubisoft.tasks.algorithm.ModelRoot;
+import knubisoft.tasks.algorithm.ModelRoot;
 import lombok.SneakyThrows;
 
 import java.util.List;

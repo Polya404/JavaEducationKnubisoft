@@ -9,7 +9,7 @@ public class Main {
         Map<String, List<List<Person>>> result = new LinkedHashMap<>();
         List<Set<String>> stringList = new ArrayList<>();
         RunGenerate runGenerate = new RunGenerate(3);
-        Type type = runGenerate.unpackGenericClass(new GenericClass<>(stringList) {
+        Type type = runGenerate.unpackGenericClass(new GenericClass<>(result) {
         }.getType());
         Object populate = runGenerate.populate(type);
         System.out.println(populate);
