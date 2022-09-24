@@ -6,25 +6,25 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Process implements Runnable {
-     UrlValidator urlValidator = new UrlValidator();
-     ArrayList<String> array = new ArrayList<>();  // ссылки которые уже были использованы
-     String urlGeneral;
-     ArrayList<String> validRef = new ArrayList<>(); // валидные ссылки
+    private UrlValidator urlValidator = new UrlValidator();
+    private ArrayList<String> array = new ArrayList<>();  // ссылки которые уже были использованы
+    private String urlGeneral;
+    private Set<String> validRef = new HashSet<>(); // валидные ссылки
 
-    public Process(String url){
+    public Process(String url) {
         this.urlGeneral = url;
     }
 
-    public ArrayList<String> getValidRef() {
+    public Set<String> getValidRef() {
         return validRef;
     }
 
     @SneakyThrows
-    public  Elements stepInto(String url) {
+    public Elements stepInto(String url) {
         Document doc = null;
         try {
             doc = Jsoup.connect(url).get();
@@ -50,6 +50,7 @@ public class Process implements Runnable {
                     process(str); // заходим по ссылке чтоб снова проверить все ссылки на странице
                     validRef.add(str); // добавляем в массив с валидными ссылками
                 }
+
             }
         }
     }
@@ -57,5 +58,6 @@ public class Process implements Runnable {
     @Override
     public void run() {
         process(urlGeneral);
+        System.out.println(getValidRef().size());
     }
 }

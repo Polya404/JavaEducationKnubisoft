@@ -7,10 +7,9 @@ public class Main {
     static String urlGeneral = "https://freemaxpictures.com";
 
     public static void main(String[] args) {
-        for (int i = 0; i < 50; i++) {
-            executor.execute(new Process(urlGeneral));
-        }
-        executor.shutdown();
+        Process process = new Process(urlGeneral);
+        process.process(urlGeneral);
+        System.out.println(process.getValidRef().size());
     }
 
 
