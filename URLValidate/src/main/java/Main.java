@@ -10,6 +10,7 @@ public class Main {
         Process process = new Process(urlGeneral);
         process.process(urlGeneral);
         System.out.println(process.getValidRef().size());
+        System.out.println(process.getNotValidRef().size());
     }
 
 

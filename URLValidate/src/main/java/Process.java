@@ -14,6 +14,7 @@ public class Process implements Runnable {
     private ArrayList<String> array = new ArrayList<>();  // ссылки которые уже были использованы
     private String urlGeneral;
     private Set<String> validRef = new HashSet<>(); // валидные ссылки
+    private Set<String> notValidRef = new HashSet<>(); // не валидные ссылки
 
     public Process(String url) {
         this.urlGeneral = url;
@@ -23,6 +24,10 @@ public class Process implements Runnable {
         return validRef;
     }
 
+    public Set<String> getNotValidRef() {
+        return notValidRef;
+    }
+
     @SneakyThrows
     public Elements stepInto(String url) {
         Document doc = null;
@@ -30,6 +35,7 @@ public class Process implements Runnable {
             doc = Jsoup.connect(url).get();
         } catch (Exception e) {
             //...
+            notValidRef.add(url);
         }
         if (doc != null) {
             return doc.select("a");
@@ -38,6 +44,7 @@ public class Process implements Runnable {
         }
     }
 
+    @SneakyThrows
     public void process(String url) {
         Elements links = stepInto(url);
 
@@ -45,10 +52,12 @@ public class Process implements Runnable {
 
             String str = link.attr("href"); // получаем ссылку
             if (urlValidator.isValid(str) && !array.contains(str)) {  // если ссылка валидна и мы еще не заходили по ней
-                if (str.startsWith(urlGeneral)) { // если ссылка принадлежит изначальному сайту
-                    array.add(link.baseUri());  // добавляем ссылку в массив ссылок котрые уже были использованы
+                if (link.baseUri().contains(urlGeneral)) {  // если ссылка принадлежит изначальному сайту
+                    array.add(link.attr("href"));  // добавляем ссылку в массив ссылок котрые уже были использованы
+                    System.out.println(link.attr("href"));
                     process(str); // заходим по ссылке чтоб снова проверить все ссылки на странице
                     validRef.add(str); // добавляем в массив с валидными ссылками
+
                 }
 
             }

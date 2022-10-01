@@ -22,6 +22,10 @@ public class GeneratorUtil {
         }
     }
 
+    /**
+     * this method adds random values of wrapper objects
+     * of primitive data types to the map
+     */
     private void loadObjectsToMap() {
         objectsSimpleMap = new LinkedHashMap<>();
         objectsSimpleMap.put(String.class, this::getStringRandom);
@@ -33,18 +37,28 @@ public class GeneratorUtil {
         objectsSimpleMap.put(Character.class, () -> ALPHABET.get(random.nextInt(ALPHABET.size())));
     }
 
+    /**
+     * this method returns a wrapper object of the primitive data type
+     * @param clazz String or Integer or Long or Float or Double or Boolean or Character
+     * @return wrapper object of the primitive data type
+     */
     public Object getSimpleGeneratedObject(Class<?> clazz) {
         return objectsSimpleMap.get(clazz).get();
     }
 
+    /**
+     * @return a set of wrapper objects of primitive data types
+     */
     public Set<Class<?>> getSimpleClasses() {
         return objectsSimpleMap.keySet();
     }
 
-    public Set<Class<?>> getCollectionClasses() {
-        return objectsCollectionsFrameworkMap.keySet();
-    }
-
+    /**
+     * this method creates a string with a random
+     * order of letters from the English alphabet with a
+     * length of 6 characters
+     * @return string
+     */
     private String getStringRandom() {
         Supplier<String> stringSupplier = () -> ALPHABET.get(random.nextInt(ALPHABET.size()));
         return Stream.generate(stringSupplier)
@@ -52,6 +66,9 @@ public class GeneratorUtil {
                 .collect(Collectors.joining());
     }
 
+    /**
+     * this method adds collection objects to the map
+     */
     private void loadCollectionsFrameworkToMap() {
         objectsCollectionsFrameworkMap = new LinkedHashMap<>();
         objectsCollectionsFrameworkMap.put(List.class, ArrayList::new);
@@ -60,6 +77,12 @@ public class GeneratorUtil {
         objectsCollectionsFrameworkMap.put(Queue.class, ArrayDeque::new);
     }
 
+    /**
+     * this method returns the implementation of one
+     * of the collections depending on the input arguments
+     * @param clazz collection
+     * @return collection
+     */
     public Object getCollectionGeneratedObject(Class<?> clazz) {
         return objectsCollectionsFrameworkMap.get(clazz).get();
     }

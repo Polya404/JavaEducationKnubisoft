@@ -15,12 +15,30 @@ public class RunGenerate {
         this.amountObject = amountObject;
     }
 
+    public RunGenerate() {
+    }
+
+    /**
+     * this method takes the type of the generic class as input and then casts it to the parameterized type
+     * if the parameterized type is equal to the generic class then return the first actual type argument
+     * if it's not generic then return the input data type
+     *
+     * @param type data type
+     * @return data type
+     */
     public Type unpackGenericClass(Type type) {
         ParameterizedType parameterizedType = (ParameterizedType) type;
         return parameterizedType.getRawType().equals(GenericClass.class) ?
                 parameterizedType.getActualTypeArguments()[0] : type;
     }
 
+    /**
+     * this method checks the incoming data type
+     * and returns an object depending on the type
+     *
+     * @param type data type
+     * @return an object of a specific type
+     */
     @SneakyThrows
     public Object populate(Type type) {
         if (type instanceof ParameterizedType) {
@@ -33,6 +51,14 @@ public class RunGenerate {
         }
     }
 
+    /**
+     * this method accepts a parameterized collection type checks
+     * the number of arguments and determines which map or list
+     * interface and creates an object depending on the type
+     *
+     * @param type collection type
+     * @return collection object
+     */
     @SneakyThrows
     @SuppressWarnings("All")
     private Object createCollection(ParameterizedType type) {
@@ -54,6 +80,12 @@ public class RunGenerate {
         }
     }
 
+    /**
+     * this method takes a custom class type as input and using
+     * reflection fills the fields of the class and returns its instance
+     * @param type class type
+     * @return instance
+     */
     @SneakyThrows
     private Object createObject(Class<?> type) {
         Object instance = null;
@@ -70,6 +102,12 @@ public class RunGenerate {
         return instance;
     }
 
+    /**
+     * this method checks if an object is a primitive type
+     *
+     * @param x object
+     * @return true or false
+     */
     private boolean isSimpleType(Object x) {
         return generator.getSimpleClasses().contains(x);
     }
