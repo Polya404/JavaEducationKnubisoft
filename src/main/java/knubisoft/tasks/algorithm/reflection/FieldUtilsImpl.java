@@ -19,12 +19,6 @@ public class FieldUtilsImpl implements FieldUtils {
 
     @SneakyThrows
     @Override
-    public Field getField(Class<?> cls, String fieldName, boolean forceAccess) {
-        return null;
-    }
-
-    @SneakyThrows
-    @Override
     public Field getDeclaredField(Class<?> cls, String fieldName) throws ClassNotFoundException, NoSuchFieldException{
         Class clazz = Class.forName(cls.getName());
         return clazz.getDeclaredField(fieldName);

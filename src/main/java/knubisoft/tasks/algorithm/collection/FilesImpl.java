@@ -57,7 +57,11 @@ public class FilesImpl implements FilesInterface {
 
     @Override
     public String normalize(String fileName) {
-        return null;
+        if (fileName == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return Paths.get(fileName).normalize().toString();
     }
 
     @Override

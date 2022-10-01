@@ -1,8 +1,10 @@
 package knubisoft.tasks.algorithm.xml;
 import knubisoft.tasks.algorithm.ModelRoot;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -17,8 +19,7 @@ class XMLTasksImplTest {
     private final String content;
 
     public XMLTasksImplTest() throws IOException {
-        content = IOUtils.toString(Objects.requireNonNull(
-                getClass().getClassLoader().getResourceAsStream("xml.xml")), StandardCharsets.UTF_8);
+        content =  FileUtils.readFileToString(new File("src/main/resources/xml.xml"), StandardCharsets.UTF_8);
     }
 
     @Test
